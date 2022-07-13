@@ -1,10 +1,11 @@
 const express = require('express');
+const app = express();
+
 const mongoose = require('mongoose');
 const path = require('path');
-// const sauceRoutes = require('./routes/sauce');
-// const userRoutes = require('./routes/user');
 
-const app = express();
+const sauceRoutes = require('./routes/sauces')
+const userRoutes = require('./routes/user');
 
 // Variables d'environnement
 require('dotenv').config();
@@ -29,16 +30,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routers
+app.use('/api/sauces', sauceRoutes); // Routes pour les sauces
+app.use('/api/auth', userRoutes); // Routes pour l'authentification
 app.use('/images', express.static(path.join(__dirname, 'images'))); // Routes pour les images statiques
-
-
-
-app.use((req, res) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-});
-
-// app.use('/api/sauces', sauceRoutes); // Router de base
-// app.use('/api/auth', userRoutes); // Routes pour l'authentification
-
 
 module.exports = app;
