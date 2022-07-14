@@ -1,14 +1,12 @@
-const express = require('express');
+const express = require('express'); 
 const app = express();
 
 const mongoose = require('mongoose');
 const path = require('path');
-
-const sauceRoutes = require('./routes/sauces')
+const saucesRoutes = require('./routes/sauces')
 const userRoutes = require('./routes/user');
+require('dotenv').config(); // Variables d'environnement
 
-// Variables d'environnement
-require('dotenv').config();
 
 // Connexion à la BDD
 mongoose.connect(process.env.MONGODB_ACCESS,
@@ -19,8 +17,10 @@ mongoose.connect(process.env.MONGODB_ACCESS,
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+
 // Bodyparser
 app.use(express.json());
+
 
 // Autorise le CORS
 app.use((req, res, next) => {
@@ -30,9 +30,11 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // Routers
-app.use('/api/sauces', sauceRoutes); // Routes pour les sauces
+app.use('/api/sauces', saucesRoutes); // Routes pour les sauces
 app.use('/api/auth', userRoutes); // Routes pour l'authentification
 app.use('/images', express.static(path.join(__dirname, 'images'))); // Routes pour les images statiques
+
 
 module.exports = app;
