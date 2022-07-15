@@ -13,4 +13,3 @@ router.put('/:id', auth, multer, saucesCtrl.FONCTION); // Modifie une sauce
 router.delete('/:id', auth, saucesCtrl.FONCTION); // Supprime une sauce
 */
 module.exports = router;
-
