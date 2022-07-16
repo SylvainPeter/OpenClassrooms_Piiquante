@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const saucesSchema = mongoose.Schema({
+const sauceSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
     manufacturer: { type: String, required: true },
@@ -10,15 +10,9 @@ const saucesSchema = mongoose.Schema({
     heat: { type: Number, required: true },
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
-    usersLiked: { type: [String] },
-    usersDisliked: { type: [String] }
+    usersLiked: { type: Array },
+    usersDisliked: { type: Array }
   });
   
-  module.exports = mongoose.model('Sauces', saucesSchema);
+  module.exports = mongoose.model('Sauce', sauceSchema);
 
-  /*
-  usersLiked: { type: [String], req: true, default: [] },
-  usersDisliked: { type: [String], req: true, default: [] },
-  usersLiked: { type: Array },
-  usersDisliked: { type: Array }
-  */
