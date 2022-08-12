@@ -1,6 +1,7 @@
 const express = require('express'); 
 const mongoose = require('mongoose');
 const path = require('path');
+const helmet = require('helmet');
 const saucesRoutes = require('./routes/sauces')
 const userRoutes = require('./routes/user');
 const app = express();
@@ -18,9 +19,8 @@ mongoose.connect(process.env.MONGODB_ACCESS,
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-// Bodyparser
-app.use(express.json());
-
+// Sécurise les headers HTTP
+app.use(helmet());
 
 // Autorise le CORS
 app.use((req, res, next) => {
@@ -29,6 +29,16 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
+// Autorise le chargement d'images depuis la BDD
+app.use(function (req, res, next) {
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-site')
+  next()
+})
+
+
+// Bodyparser
+app.use(express.json());
 
 
 // Routers
