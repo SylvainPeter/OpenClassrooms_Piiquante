@@ -3,7 +3,7 @@ var passwordValidator = require('password-validator');
 // Création du schéma
 var passwordSchema = new passwordValidator();
 
-// shéma 
+// schéma 
 passwordSchema
 .is().min(4)                                    // 4 caractères minimum
 .is().max(25)                                   // 25 caractères maximum
